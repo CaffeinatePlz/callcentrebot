@@ -12,7 +12,7 @@ const bot = new Discord.Client({
 
 bot.on("message", async message => {
 
-    if (message.guild.id == '655240399136358420' && message.channel.parentID == ARCHIVED_CATEGORY && !message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff"){
+    if (message.guild.id == '655240399136358420' && message.channel.parentID == ARCHIVED_CATEGORY && !message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff")){
         let channel = message.channel;
         channel.setParent(INCOMING_CATEGORY).then( channel => {
                 channel.createOverwrite(message.author, {
