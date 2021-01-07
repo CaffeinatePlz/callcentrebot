@@ -1,8 +1,8 @@
-const INCOMING_CATEGORY = '796672610468626482';
-const ARCHIVED_CATEGORY = '796672646048645150';
-const ONLINE_ROLE = '796672434958106668';
-const LOGGING_CHANNEL = '796673602405400576';
-const GUILD_ID = '795774481687642163';
+const INCOMING_CATEGORY = '655241137212096553';
+const ARCHIVED_CATEGORY = '656077269260828682';
+const ONLINE_ROLE = '656078383595126794';
+const LOGGING_CHANNEL = '662842188748816389';
+const GUILD_ID = '655240399136358420';
 
 const Discord = require("discord.js");
 const bot = new Discord.Client({
@@ -12,6 +12,7 @@ const bot = new Discord.Client({
 //const config = require("./config.json");
 
 bot.on("message", async message => {
+	if(message.author.bot) return;
 
     if (message.guild.id == GUILD_ID && message.channel.parentID == ARCHIVED_CATEGORY && !message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff")){
         let channel = message.channel;
