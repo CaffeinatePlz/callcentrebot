@@ -11,6 +11,23 @@ const bot = new Discord.Client({
 //const config = require("./config.json");
 
 bot.on("message", async message => {
+
+    if (message.guild.id == '655240399136358420' && message.channel.parentID == ARCHIVED_CATEGORY && !message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff"){
+        let channel = message.channel;
+        channel.setParent(INCOMING_CATEGORY).then( channel => {
+                channel.createOverwrite(message.author, {
+                    VIEW_CHANNEL: true
+                })
+                    .then( channel => {
+                        channel.send("<@&" + ONLINE_ROLE + "> , a call has been started by <@" + message.author.id + ">");
+                    })
+            }
+        );
+    }
+
+})
+
+bot.on("message", async message => {
 	if(message.author.bot) return;
     if(message.content.indexOf("+") !== 0) return;
     const args = message.content.slice(1).trim().split(/ +/g);
@@ -67,7 +84,7 @@ bot.on("message", async message => {
             if(message.channel.parentID == ARCHIVED_CATEGORY){
                 channel = message.channel;
                 channel.setParent(INCOMING_CATEGORY).catch(console.error);
-                channel.overwritePermissions(message.author, {
+                channel.createOverwrite(message.author, {
                     SEND_MESSAGES: true
                 })
                     .catch(console.error);
