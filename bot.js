@@ -8,7 +8,7 @@ const bot = new Discord.Client({
     disableMentions: 'everyone',
     autorun: true
 });
-const config = require("./config.json");
+//const config = require("./config.json");
 
 bot.on("message", async message => {
 	if(message.author.bot) return;
@@ -151,7 +151,8 @@ bot.on("message", async message => {
   });
 
 
-bot.login(config.token);
+//bot.login(config.token);
+bot.login(process.env.BOT_TOKEN);
 
 
 
