@@ -11,6 +11,17 @@ const bot = new Discord.Client({
 });
 //const config = require("./config.json");
 
+bot.on('guildMemberAdd', member => {
+    if (member.guild.id == GUILD_ID){
+        member.guild.channels.get('655241972411531274').send("Welcome, <@" + member.user.id + ">! " +
+            "Please set your nickname with `/nick name teamnumber`, for example `/nick Anna 9999`, " +
+            "to help everyone easily identify you. If you are a call center staff, your role will be assigned soon.\n" +
+            "__To start  a private chat with our call center staff:__\n" +
+            "- Type in `+start teamnumber`, for example `+start 9999`\n" +
+            "If there is anything you need help with, ping Hayley @ CaffeinatePlz#2727 and she'll be around ASAP.");
+    }
+});
+
 bot.on("message", async message => {
 	if(message.author.bot) return;
 
@@ -51,7 +62,7 @@ bot.on("message", async message => {
         }
     }
 
-    if (command === "logon") {
+    if (command === "logon"||command === "login") {
         let role = message.guild.roles.cache.find(r => r.name.toLowerCase() == "online");
 
         if (!message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff")){
@@ -68,7 +79,7 @@ bot.on("message", async message => {
     }
 
 
-    if (command === "endcall") {
+    if (command === "endcall" || command === "end") {
         if(message.channel.parentID == INCOMING_CATEGORY){
             message.channel.setParent(ARCHIVED_CATEGORY);
             message.channel.send("Call ended. Any new messages after this will start a new call.")
@@ -77,7 +88,7 @@ bot.on("message", async message => {
         }
     }
 
-    if(command === "startcall") {
+    if(command === "startcall" || command === "start") {
         if (parseInt(args[0]) <10000 && parseInt(args[0]) > 0){
 
             let server = message.guild;
