@@ -2,6 +2,7 @@ const INCOMING_CATEGORY = '796672610468626482';
 const ARCHIVED_CATEGORY = '796672646048645150';
 const ONLINE_ROLE = '796672434958106668';
 const LOGGING_CHANNEL = '796673602405400576';
+const GUILD_ID = '795774481687642163';
 
 const Discord = require("discord.js");
 const bot = new Discord.Client({
@@ -12,7 +13,7 @@ const bot = new Discord.Client({
 
 bot.on("message", async message => {
 
-    if (message.guild.id == '655240399136358420' && message.channel.parentID == ARCHIVED_CATEGORY && !message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff")){
+    if (message.guild.id == GUILD_ID && message.channel.parentID == ARCHIVED_CATEGORY && !message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff")){
         let channel = message.channel;
         channel.setParent(INCOMING_CATEGORY).then( channel => {
                 channel.createOverwrite(message.author, {
