@@ -46,7 +46,14 @@ bot.on("message", async message => {
     const args = message.content.slice(1).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    if (command === "logoff") {
+    if (command === "nick") {
+        var member = await message.channel.guild.members.fetch(message.author.id).catch((err) => message.reply("Error: " + err));
+        var set = 1;
+        await member.setNickname(args[0]).catch(err => {set = 0; message.channel.send("I was unable to add the nickname")});
+        if (set == 1) message.channel.send("Nickname set!");
+    }
+
+    if (command === "logoff" || command === "logout") {
         let role = message.guild.roles.cache.find(r => r.name.toLowerCase() == "online");
 
         if (!message.member.roles.cache.find(r => r.name.toLowerCase() == "call centre staff")){
